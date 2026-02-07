@@ -71,18 +71,18 @@ class LinkedList:
         """
         TODO: Write this implementation
         # """
-        # print(self.length())
-
-        # Create new node
+        # Create new node and set to next of sentinel
         if self.is_empty():
-            new_node = SLNode(value, None)
+            self._head.next = SLNode(value, None)
+        else:
+            # Preserve next node_val
+            next_val = self._head.next
 
-            # print(new_node)
+            # Create new node and set to next of head
+            self._head.next = SLNode(value, None)
 
-        # Initialize node and insert data in to new node
-        # Point new node to the first node?
-        # move first node to newly created node?
-
+            # set the new nodes next to the preserved next val
+            self._head.next.next = next_val
 
 
     def insert_back(self, value: object) -> None:
