@@ -71,15 +71,19 @@ class LinkedList:
         """
         TODO: Write this implementation
         # """
+
+        # Create new node
+        new_node = SLNode(value, None)
+
         # Create new node and set to next of sentinel
         if self.is_empty():
-            self._head.next = SLNode(value, None)
+            self._head.next = new_node
         else:
-            # Preserve next node_val
+            # Preserve next node val
             next_val = self._head.next
 
             # Create new node and set to next of head
-            self._head.next = SLNode(value, None)
+            self._head.next = new_node
 
             # set the new nodes next to the preserved next val
             self._head.next.next = next_val
@@ -89,7 +93,15 @@ class LinkedList:
         """
         TODO: Write this implementation
         """
-        pass
+        # If list is empty, set first val in list
+        if self.is_empty():
+            self._head.next = SLNode(value, None)
+        else:
+            next_node = self._head.next
+            while next_node.next:
+                next_node = next_node.next
+            next_node.next = SLNode(value, None)
+
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
@@ -109,11 +121,24 @@ class LinkedList:
         """
         pass
 
+
+
+
     def count(self, value: object) -> int:
         """
         TODO: Write this implementation
         """
-        pass
+        val_count = 0
+        next_node = self._head.next
+        while next_node:
+            if next_node.value == value:
+                val_count += 1
+            next_node = next_node.next
+        return val_count
+
+
+
+
 
     def find(self, value: object) -> bool:
         """
@@ -132,20 +157,26 @@ class LinkedList:
 
 
 if __name__ == "__main__":
+    #
+    # print("\n# insert_front example 1")
+    # test_cases = ["A", "B", "C"]
+    # lst = LinkedList()
+    # for case in test_cases:
+    #     lst.insert_front(case)
+    #
+    # print(lst.length())
 
-    print("\n# insert_front example 1")
-    test_cases = ["A", "B", "C"]
-    lst = LinkedList()
-    for case in test_cases:
-        lst.insert_front(case)
 
+    #
     # print("\n# insert_back example 1")
     # test_cases = ["C", "B", "A"]
     # lst = LinkedList()
     # for case in test_cases:
     #     lst.insert_back(case)
     #     print(lst)
-    #
+
+
+
     # print("\n# insert_at_index example 1")
     # lst = LinkedList()
     # test_cases = [(0, "A"), (0, "B"), (1, "C"), (3, "D"), (-1, "E"), (5, "F")]
@@ -181,11 +212,13 @@ if __name__ == "__main__":
     # for value in [1, 2, 3, 1, 2, 3, 3, 2, 1]:
     #     print(f"remove({value}): {lst.remove(value)}, Length: {lst.length()}"
     #           f"\n {lst}")
-    #
-    # print("\n# count example 1")
-    # lst = LinkedList([1, 2, 3, 1, 2, 2])
-    # print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
-    #
+
+    print("\n# count example 1")
+    lst = LinkedList([1, 2, 3, 1, 2, 2])
+    print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
+
+
+
     # print("\n# find example 1")
     # lst = LinkedList(["Waldo", "Clark Kent", "Homer", "Santa Claus"])
     # print(lst)
