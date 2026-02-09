@@ -114,23 +114,17 @@ class LinkedList:
         # If insert at front or back, set new node using methods
         if index == 0:
             self.insert_front(value)
-            return
-        if index == self.length() + 1:
-            self.insert_back(value)
-            return
 
         # Insert val logic if not front, back, or invalid
-        curr_index = 0
+        curr_index = 1
         curr_node = self._head.next
 
         while curr_node:
             if curr_index == index:
                 # Preserve curr node
-                next_node = curr_node
-                curr_node = SLNode(value, None)
-                curr_node.next = next_node
-                return
-
+                next_node = curr_node.next
+                curr_node.next = SLNode(value, None)
+                curr_node.next.next = next_node
             curr_index += 1
             curr_node = curr_node.next
 
@@ -140,13 +134,50 @@ class LinkedList:
         """
         TODO: Write this implementation
         """
-        pass
+        # Raise error if index out of bounds
+        if index < 0 or index >= self.length():
+            raise SLLException
+
+        # Insert val logic if not front, back, or invalid
+        curr_index = 0
+        head_node = self._head
+        curr_node = head_node.next
+
+        while curr_node:
+            if curr_index == index:
+                prev_node = head_node
+                next_node = curr_node.next
+                prev_node.next = next_node
+                return
+
+            curr_index += 1
+            head_node = curr_node
+            curr_node = curr_node.next
+
+
 
     def remove(self, value: object) -> bool:
         """
         TODO: Write this implementation
         """
-        pass
+        # Insert val logic if not front, back, or invalid
+        curr_index = 0
+        head_node = self._head
+        curr_node = head_node.next
+
+        while curr_node:
+            if curr_node.value == value:
+                prev_node = head_node
+                next_node = curr_node.next
+                prev_node.next = next_node
+                return True
+
+            curr_index += 1
+            head_node = curr_node
+            curr_node = curr_node.next
+
+        # Return false if no value found
+        return False
 
 
 
@@ -194,7 +225,14 @@ class LinkedList:
         """
         TODO: Write this implementation
         """
-        pass
+
+        next_node = self._head.next
+        while next_node:
+            print(curr_node)
+            # if next_node.value == value:
+            #     val_count += 1
+            next_node = next_node.next
+
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -220,19 +258,19 @@ if __name__ == "__main__":
     #     print(lst)
 
 
-
-    print("\n# insert_at_index example 1")
-    lst = LinkedList()
-    test_cases = [(0, "A"), (0, "B"), (1, "C"), (3, "D"), (-1, "E"), (5, "F")]
-    for index, value in test_cases:
-        print("Inserted", value, "at index", index, ": ", end="")
-        print("Length:", lst.length(),lst)
-        try:
-            lst.insert_at_index(index, value)
-            print(lst)
-        except Exception as e:
-            print(type(e))
-
+    #
+    # print("\n# insert_at_index example 1")
+    # lst = LinkedList()
+    # test_cases = [(0, "A"), (0, "B"), (1, "C"), (3, "D"), (-1, "E"), (5, "F")]
+    # for index, value in test_cases:
+    #     print("Inserted", value, "at index", index, ": ", end="")
+    #     print("Length:", lst.length(),lst)
+    #     try:
+    #         lst.insert_at_index(index, value)
+    #         print(lst)
+    #     except Exception as e:
+    #         print(type(e))
+    #
 
 
 
@@ -246,10 +284,12 @@ if __name__ == "__main__":
     #         print(lst)
     #     except Exception as e:
     #         print(type(e))
-    #
+
+
+
     # print("\n# remove example 1")
     # lst = LinkedList([1, 2, 3, 1, 2, 3, 1, 2, 3])
-    # print(f"Initial LinkedList, Length: {lst.length()}\n  {lst}")1
+    # print(f"Initial LinkedList, Length: {lst.length()}\n  {lst}")
     # for value in [7, 3, 3, 3, 3]:
     #     print(f"remove({value}): {lst.remove(value)}, Length: {lst.length()}"
     #           f"\n {lst}")
@@ -264,7 +304,7 @@ if __name__ == "__main__":
     # print("\n# count example 1")
     # lst = LinkedList([1, 2, 3, 1, 2, 2])
     # print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
-    #
+
 
 
     # print("\n# find example 1")
@@ -276,21 +316,21 @@ if __name__ == "__main__":
 
 
 
-    # print("\n# slice example 1")
-    # lst = LinkedList([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    # ll_slice = lst.slice(1, 3)
-    # print("Source:", lst)
-    # print("Start: 1 Size: 3 :", ll_slice)
-    # ll_slice.remove_at_index(0)
-    # print("Removed at index 0 :", ll_slice)
-    #
-    # print("\n# slice example 2")
-    # lst = LinkedList([10, 11, 12, 13, 14, 15, 16])
-    # print("Source:", lst)
-    # slices = [(0, 7), (-1, 7), (0, 8), (2, 3), (5, 0), (5, 3), (6, 1)]
-    # for index, size in slices:
-    #     print("Start:", index, "Size:", size, end="")
-    #     try:
-    #         print(" :", lst.slice(index, size))
-    #     except:
-    #         print(" : exception occurred.")
+    print("\n# slice example 1")
+    lst = LinkedList([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    ll_slice = lst.slice(1, 3)
+    print("Source:", lst)
+    print("Start: 1 Size: 3 :", ll_slice)
+    ll_slice.remove_at_index(0)
+    print("Removed at index 0 :", ll_slice)
+
+    print("\n# slice example 2")
+    lst = LinkedList([10, 11, 12, 13, 14, 15, 16])
+    print("Source:", lst)
+    slices = [(0, 7), (-1, 7), (0, 8), (2, 3), (5, 0), (5, 3), (6, 1)]
+    for index, size in slices:
+        print("Start:", index, "Size:", size, end="")
+        try:
+            print(" :", lst.slice(index, size))
+        except:
+            print(" : exception occurred.")
