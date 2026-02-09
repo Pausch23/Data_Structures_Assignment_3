@@ -71,19 +71,15 @@ class LinkedList:
         """
         TODO: Write this implementation
         # """
-
-        # Create new node
-        new_node = SLNode(value, None)
-
         # Create new node and set to next of sentinel
         if self.is_empty():
-            self._head.next = new_node
+            self._head.next = SLNode(value, None)
         else:
             # Preserve next node val
             next_val = self._head.next
 
             # Create new node and set to next of head
-            self._head.next = new_node
+            self._head.next = SLNode(value, None)
 
             # set the new nodes next to the preserved next val
             self._head.next.next = next_val
@@ -98,8 +94,12 @@ class LinkedList:
             self._head.next = SLNode(value, None)
         else:
             next_node = self._head.next
+
+            # While the next node is not None, loop until None or at end
             while next_node.next:
                 next_node = next_node.next
+
+            # Set the last node to new node value
             next_node.next = SLNode(value, None)
 
 
@@ -107,7 +107,34 @@ class LinkedList:
         """
         TODO: Write this implementation
         """
-        pass
+        # Raise error if index out of bounds
+        if index < 0 or index > self.length():
+            raise SLLException
+
+        # If insert at front or back, set new node using methods
+        if index == 0:
+            self.insert_front(value)
+            return
+        if index == self.length() + 1:
+            self.insert_back(value)
+            return
+
+        # Insert val logic if not front, back, or invalid
+        curr_index = 0
+        curr_node = self._head.next
+
+        while curr_node:
+            if curr_index == index:
+                # Preserve curr node
+                next_node = curr_node
+                curr_node = SLNode(value, None)
+                curr_node.next = next_node
+                return
+
+            curr_index += 1
+            curr_node = curr_node.next
+
+
 
     def remove_at_index(self, index: int) -> None:
         """
@@ -137,14 +164,31 @@ class LinkedList:
         return val_count
 
 
-
-
-
     def find(self, value: object) -> bool:
         """
-        TODO: Write this implementation
+        Returns a bool based on if the value parameter is currently in the linked list
+
+        :param value: value to find in linked list
+
+        :return: returns True or False based on value in list
         """
-        pass
+        # Set next node to next of head
+        next_node = self._head.next
+
+        # Loop until next node is None, indicating end of list
+        while next_node:
+
+            # if the next node's value is value to find, return True
+            if next_node.value == value:
+                return True
+            next_node = next_node.next
+
+        # Return False is value not found
+        return False
+
+
+
+
 
     def slice(self, start_index: int, size: int) -> "LinkedList":
         """
@@ -177,17 +221,21 @@ if __name__ == "__main__":
 
 
 
-    # print("\n# insert_at_index example 1")
-    # lst = LinkedList()
-    # test_cases = [(0, "A"), (0, "B"), (1, "C"), (3, "D"), (-1, "E"), (5, "F")]
-    # for index, value in test_cases:
-    #     print("Inserted", value, "at index", index, ": ", end="")
-    #     try:
-    #         lst.insert_at_index(index, value)
-    #         print(lst)
-    #     except Exception as e:
-    #         print(type(e))
-    #
+    print("\n# insert_at_index example 1")
+    lst = LinkedList()
+    test_cases = [(0, "A"), (0, "B"), (1, "C"), (3, "D"), (-1, "E"), (5, "F")]
+    for index, value in test_cases:
+        print("Inserted", value, "at index", index, ": ", end="")
+        print("Length:", lst.length(),lst)
+        try:
+            lst.insert_at_index(index, value)
+            print(lst)
+        except Exception as e:
+            print(type(e))
+
+
+
+
     # print("\n# remove_at_index example 1")
     # lst = LinkedList([1, 2, 3, 4, 5, 6])
     # print(f"Initial LinkedList : {lst}")
@@ -201,7 +249,7 @@ if __name__ == "__main__":
     #
     # print("\n# remove example 1")
     # lst = LinkedList([1, 2, 3, 1, 2, 3, 1, 2, 3])
-    # print(f"Initial LinkedList, Length: {lst.length()}\n  {lst}")
+    # print(f"Initial LinkedList, Length: {lst.length()}\n  {lst}")1
     # for value in [7, 3, 3, 3, 3]:
     #     print(f"remove({value}): {lst.remove(value)}, Length: {lst.length()}"
     #           f"\n {lst}")
@@ -212,11 +260,11 @@ if __name__ == "__main__":
     # for value in [1, 2, 3, 1, 2, 3, 3, 2, 1]:
     #     print(f"remove({value}): {lst.remove(value)}, Length: {lst.length()}"
     #           f"\n {lst}")
-
-    print("\n# count example 1")
-    lst = LinkedList([1, 2, 3, 1, 2, 2])
-    print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
-
+    #
+    # print("\n# count example 1")
+    # lst = LinkedList([1, 2, 3, 1, 2, 2])
+    # print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
+    #
 
 
     # print("\n# find example 1")
@@ -225,7 +273,9 @@ if __name__ == "__main__":
     # print(lst.find("Waldo"))
     # print(lst.find("Superman"))
     # print(lst.find("Santa Claus"))
-    #
+
+
+
     # print("\n# slice example 1")
     # lst = LinkedList([1, 2, 3, 4, 5, 6, 7, 8, 9])
     # ll_slice = lst.slice(1, 3)
