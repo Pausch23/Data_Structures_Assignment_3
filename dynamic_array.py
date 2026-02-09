@@ -132,9 +132,6 @@ class DynamicArray:
         print(f"Length: {self._size}, Capacity: {self._capacity}, {self._data}")
 
     # -----------------------------------------------------------------------
-
-    # ---------------Helper-Methods-----------------
-
     def set_length(self, length) -> None:
         """
         Sets the new array size
@@ -154,10 +151,7 @@ class DynamicArray:
         :return: None
         """
         self._capacity = capacity
-
-
     # -----------------------------------------------------------------------
-
 
     def resize(self, new_capacity: int) -> None:
         """
@@ -195,7 +189,6 @@ class DynamicArray:
         # Set as a last check to update capacity
         self._capacity = new_capacity
 
-
     def append(self, value: object) -> None:
         """
         Appends value to end of array.
@@ -211,7 +204,6 @@ class DynamicArray:
         # Set new value and increase size
         self._data[self._size] = value
         self._size += 1
-
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
@@ -260,7 +252,6 @@ class DynamicArray:
                     current_val = next_val
                     start_index = index
 
-
     def remove_at_index(self, index: int) -> None:
         """
         Removes the index in array.
@@ -306,7 +297,6 @@ class DynamicArray:
         if starting_capacity > 10 and self.get_capacity() < 10:
             self.resize(10)
 
-
     def slice(self, start_index: int, size: int) -> "DynamicArray":
         """
         Returns a sliced array based on index and new array size from
@@ -343,7 +333,6 @@ class DynamicArray:
         # Return the new array
         return return_array
 
-
     def merge(self, second_da: "DynamicArray") -> None:
         """
         Combines two arrays.
@@ -355,7 +344,6 @@ class DynamicArray:
         # Loop through the input array and append to current array
         for index in range(second_da.length()):
             self.append(second_da.get_at_index(index))
-
 
     def map(self, map_func) -> "DynamicArray":
         """
@@ -375,7 +363,6 @@ class DynamicArray:
         # Return new array
         return new_array
 
-
     def filter(self, filter_func) -> "DynamicArray":
         """
         Returns a new array based on function parameter.
@@ -394,7 +381,6 @@ class DynamicArray:
 
         # Return new array
         return new_array
-
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
@@ -427,8 +413,6 @@ class DynamicArray:
             return_val = reduce_func(return_val, self.get_at_index(index))
 
         return return_val
-
-
 
 
 def find_mode(arr: DynamicArray) -> tuple[DynamicArray, int]:

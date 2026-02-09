@@ -1,8 +1,8 @@
-# Name:
-# OSU Email:
+# Name: Paul Schmidt
+# OSU Email: schmipau@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
+# Assignment: 3
+# Due Date: 2/9/2026
 # Description:
 
 
@@ -54,19 +54,33 @@ class Stack:
         """
         TODO: Write this implementation
         """
-        pass
+        # Use the dynamic array method to append values
+        self._da.append(value)
+
+
 
     def pop(self) -> object:
         """
         TODO: Write this implementation
         """
-        pass
+        if self.is_empty():
+            raise StackException
+        last_index = self._da.length() - 1
+        return_val = self._da.get_at_index(last_index)
+        self._da.remove_at_index(last_index)
+        return return_val
+
 
     def top(self) -> object:
         """
         TODO: Write this implementation
         """
-        pass
+        if self.is_empty():
+            raise StackException
+        last_index = self._da.length() - 1
+        return_val = self._da.get_at_index(last_index)
+
+        return return_val
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -74,26 +88,32 @@ class Stack:
 
 if __name__ == "__main__":
 
-    print("\n# push example 1")
-    s = Stack()
-    print(s)
-    for value in [1, 2, 3, 4, 5]:
-        s.push(value)
-    print(s)
+    # print("\n# push example 1")
+    # s = Stack()
+    # print(s)
+    # for value in [1, 2, 3, 4, 5]:
+    #     s.push(value)
+    # print(s)
 
-    print("\n# pop example 1")
-    s = Stack()
-    try:
-        print(s.pop())
-    except Exception as e:
-        print("Exception:", type(e))
-    for value in [1, 2, 3, 4, 5]:
-        s.push(value)
-    for i in range(6):
-        try:
-            print(s.pop())
-        except Exception as e:
-            print("Exception:", type(e))
+
+
+
+    # print("\n# pop example 1")
+    # s = Stack()
+    # try:
+    #     print(s.pop())
+    # except Exception as e:
+    #     print("Exception:", type(e))
+    # for value in [1, 2, 3, 4, 5]:
+    #     s.push(value)
+    # for i in range(6):
+    #     try:
+    #         print(s.pop())
+    #     except Exception as e:
+    #         print("Exception:", type(e))
+
+
+
 
     print("\n# top example 1")
     s = Stack()
