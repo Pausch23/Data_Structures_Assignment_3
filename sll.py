@@ -218,20 +218,32 @@ class LinkedList:
         return False
 
 
-
-
-
     def slice(self, start_index: int, size: int) -> "LinkedList":
         """
         TODO: Write this implementation
         """
+        # Check that start index is valid
+        if start_index < 0 or start_index >= self.length():
+            raise SLLException
 
-        next_node = self._head.next
-        while next_node:
-            print(curr_node)
-            # if next_node.value == value:
-            #     val_count += 1
-            next_node = next_node.next
+        # Check that size is valid
+        if size < 0 or size > self.length():
+            raise SLLException
+
+        # Calculate end index and array length
+        end_index = start_index + (size - 1)
+        calculated_length = abs(start_index - end_index) + 1
+
+        new_list = LinkedList()
+
+        curr_index = 0
+        curr_node = self._head
+        while curr_index < calculated_length:
+            curr_node = curr_node.next
+            if start_index == curr_index:
+                print(curr_node)
+            curr_index += 1
+
 
 
 
