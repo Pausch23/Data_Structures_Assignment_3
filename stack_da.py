@@ -1,9 +1,11 @@
 # Name: Paul Schmidt
 # OSU Email: schmipau@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment: 3
+# Assignment: 3 - Part 2
 # Due Date: 2/9/2026
-# Description:
+# Description: Stack class using the dynamic array
+# methods from previous assignment to maintain stack.
+# Methods implemented to push, pop, and top the stack.
 
 
 from dynamic_array import *
@@ -52,7 +54,11 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Pushes value to top of stack.
+
+        :param value:   value to push
+
+        :return:        None
         """
         # Use the dynamic array method to append values
         self._da.append(value)
@@ -61,25 +67,40 @@ class Stack:
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes top value from stack and returns value.
+
+        :param :        None
+
+        :return:        value
         """
+        # Raise exception if stack is empty
         if self.is_empty():
             raise StackException
+
+        # Get the last index based on length
         last_index = self._da.length() - 1
         return_val = self._da.get_at_index(last_index)
+
+        # Remove the value at the index and return the value
         self._da.remove_at_index(last_index)
         return return_val
 
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the top value of the stack without changing stack.
+
+        :param :        None
+
+        :return:        value
         """
+        # Raise exception if stack is empty
         if self.is_empty():
             raise StackException
+
+        # Get the last index based on length and return value
         last_index = self._da.length() - 1
         return_val = self._da.get_at_index(last_index)
-
         return return_val
 
 

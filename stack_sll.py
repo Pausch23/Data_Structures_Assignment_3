@@ -1,9 +1,11 @@
-# Name:
-# OSU Email:
+# Name: Paul Schmidt
+# OSU Email: schmipau@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3 - Part 4
+# Due Date: 2/9/2026
+# Description: Stack class using singly linked list structure.
+# Methods implemented to push, pop, and top values on the
+# stack.
 
 
 from SLNode import SLNode
@@ -63,21 +65,58 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Pushes value to top of the stack.
+
+        :param value:   value to add to stack
+
+        :return:        None
         """
-        pass
+        # Set new head node if list is empty
+        if self.is_empty():
+            self._head = SLNode(value, None)
+        else:
+            # Preserve head node and set new head node
+            head_node = self._head
+            self._head = SLNode(value, None)
+
+            # Set new head node's next to preserved head node
+            self._head.next = head_node
+
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes top value from stack.
+
+        :param :        None
+
+        :return:        value from stack
         """
-        pass
+        # Raise exception if list is empty
+        if self.is_empty():
+            raise StackException
+
+        # Preserve head node and set head to next
+        curr_node = self._head
+        self._head = curr_node.next
+
+        # Return the preserved head node value
+        return curr_node.value
+
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns top value of stack without changing stack.
+
+        :param :        None
+
+        :return:        top value from stack
         """
-        pass
+        # Raise exception if list is empty
+        if self.is_empty():
+            raise StackException
+
+        # Return the preserved head node value
+        return self._head.value
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -85,26 +124,27 @@ class Stack:
 
 if __name__ == "__main__":
 
-    print("\n# push example 1")
-    s = Stack()
-    print(s)
-    for value in [1, 2, 3, 4, 5]:
-        s.push(value)
-    print(s)
+    # print("\n# push example 1")
+    # s = Stack()
+    # print(s)
+    # for value in [1, 2, 3, 4, 5]:
+    #     s.push(value)
+    # print(s)
 
-    print("\n# pop example 1")
-    s = Stack()
-    try:
-        print(s.pop())
-    except Exception as e:
-        print("Exception:", type(e))
-    for value in [1, 2, 3, 4, 5]:
-        s.push(value)
-    for i in range(6):
-        try:
-            print(s.pop())
-        except Exception as e:
-            print("Exception:", type(e))
+    # print("\n# pop example 1")
+    # s = Stack()
+    # try:
+    #     print(s.pop())
+    # except Exception as e:
+    #     print("Exception:", type(e))
+    # for value in [1, 2, 3, 4, 5]:
+    #     s.push(value)
+    # for i in range(6):
+    #     try:
+    #         print(s.pop())
+    #     except Exception as e:
+    #         print("Exception:", type(e))
+
 
     print("\n# top example 1")
     s = Stack()

@@ -1,9 +1,11 @@
-# Name:
-# OSU Email:
+# Name: Paul Schmidt
+# OSU Email: schmipau@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3 - Part 5
+# Due Date: 2/9/2026
+# Description: Queue class using the singly linked list
+# structure for maintenance. Class has methods for
+# enqueue, dequeue, and front.
 
 
 from SLNode import SLNode
@@ -64,21 +66,61 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds value to end of the queue.
+
+        :param value:   value to add
+
+        :return:        None
         """
-        pass
+        # Set new head node if list is empty
+        if self.is_empty():
+            self._head = SLNode(value, None)
+        else:
+            # Preserve head node and set new head node
+            head_node = self._head
+
+            # Loop until the next node is None
+            while head_node.next:
+                head_node = head_node.next
+
+            # Set the new node
+            head_node.next = SLNode(value, None)
+
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Removes value at the beginning of the queue.
+
+        :param :   None
+
+        :return:   value removed
         """
-        pass
+        # Raise exception if list queue is empty
+        if self.is_empty():
+            raise QueueException
+
+        # Preserve head node
+        head_node = self._head
+
+        # Set head node to next node and return head node value
+        self._head = head_node.next
+        return head_node.value
+
 
     def front(self) -> object:
         """
-        TODO: Write this implementation
+        Returns front element of the queue without removing.
+
+        :param :   None
+
+        :return:   front value
         """
-        pass
+        # Raise exception if list is empty
+        if self.is_empty():
+            raise QueueException
+
+        # Return the preserved head node value
+        return self._head.value
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -86,23 +128,26 @@ class Queue:
 
 if __name__ == "__main__":
 
-    print("\n# enqueue example 1")
-    q = Queue()
-    print(q)
-    for value in [1, 2, 3, 4, 5]:
-        q.enqueue(value)
-    print(q)
+    # print("\n# enqueue example 1")
+    # q = Queue()
+    # print(q)
+    # for value in [1, 2, 3, 4, 5]:
+    #     q.enqueue(value)
+    # print(q)
 
-    print("\n# dequeue example 1")
-    q = Queue()
-    for value in [1, 2, 3, 4, 5]:
-        q.enqueue(value)
-    print(q)
-    for i in range(6):
-        try:
-            print(q.dequeue())
-        except Exception as e:
-            print("No elements in queue", type(e))
+
+
+    # print("\n# dequeue example 1")
+    # q = Queue()
+    # for value in [1, 2, 3, 4, 5]:
+    #     q.enqueue(value)
+    # print(q)
+    # for i in range(6):
+    #     try:
+    #         print(q.dequeue())
+    #     except Exception as e:
+    #         print("No elements in queue", type(e))
+
 
     print('\n#front example 1')
     q = Queue()
